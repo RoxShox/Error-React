@@ -12,7 +12,7 @@ const CharList = (props) => {
 	
 	const [charList, setCharList] = useState([]);
 	const [newItemLoading, setNewItemLoading] = useState(false);
-	const [offset, setOffset] = useState(1);
+	const [offset, setOffset] = useState(0);
 	const [charEnded, setCharEnded] = useState(false);
 
 
@@ -54,19 +54,17 @@ const CharList = (props) => {
 			
 		}
 		const target = e.target.closest('.char__item')
-
 		createRef(target);
 
 		myRef.classList.add('char__item_selected')
 		
-
 		props.onCharSelected(id)
 	}
 
 
 	function renderItems(arr) {
 
-		const items = arr.map( (item) => {
+		const items = arr.map((item, i) => {
 			let imgStyle = {'objectFit': 'cover'};
 			if (item.thumbnail === 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg'){
 				imgStyle = {'objectFit': 'unset'};
@@ -75,7 +73,7 @@ const CharList = (props) => {
 			return (
 				<li 
 					className="char__item"
-					key={item.id}
+					key={i}
 					onClick={(e) => onSelectChar(e, item.id)}>
 						<img src={item.thumbnail} alt="abyss" style={imgStyle}/>
 						<div className="char__name">{item.name}</div>
